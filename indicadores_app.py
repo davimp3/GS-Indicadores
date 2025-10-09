@@ -71,6 +71,16 @@ else:
 mask_data = (dados_agosto['criado'].dt.date >= start_date) & (dados_agosto['criado'].dt.date <= end_date)
 df_filtrado_1 = dados_agosto[mask_data]
 
+if len(filtro_data_geral) == 2:
+    data_inicial = filtro_data_geral[0]
+    data_final = filtro_data_geral[1]
+
+    # Formata cada data separadamente e as exibe
+    st.write(f"Período Selecionado: de {data_inicial.strftime('%d/%m/%Y')} até {data_final.strftime('%d/%m/%Y')}")
+else:
+    # Mostra uma mensagem caso algo dê errado ou apenas uma data seja selecionada
+    st.write("Por favor, selecione um período de data válido (início e fim).")
+    
 # Filtro por CLIENTE 
 if filtro_cliente:
     df_filtrado_2 = df_filtrado_1[df_filtrado_1['Organizacoes'].isin(filtro_cliente)]
