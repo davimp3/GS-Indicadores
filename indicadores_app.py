@@ -77,15 +77,18 @@ else:
 
 # --- BARRA LATERAL DE FILTROS ---
 st.sidebar.title("Filtros Gerais")
-
 if not df_jira.empty and 'Created' in df_jira.columns and not df_jira['Created'].isnull().all():
+
+    hoje = pd.to_datetime('today').date()
+
+    df_dados_validos = df_jira[df_jira['Created'].dt.date <= hoje]
     min_date = df_jira['Created'].min().date()
     max_date = df_jira['Created'].max().date()
 
     filtro_data_geral = st.sidebar.date_input(
         "Selecione uma Data",
         min_value=min_date, 
-        max_value=max_date,
+        max_value=max_date, # Agora o max_date será o correto (ex: 04/11/2025)
         value=(min_date, max_date)
     )
     st.sidebar.divider()
