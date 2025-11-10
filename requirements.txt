@@ -1,4 +1,7 @@
-pandas
 streamlit
+pandas
+gspread
+gspread-dataframe
 plotly
-numpy
+google-auth-oauthlib
+google-auth-httplib2
