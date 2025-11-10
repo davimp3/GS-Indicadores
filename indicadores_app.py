@@ -17,7 +17,7 @@ def converter_para_horas(tempo_str):
         return np.nan
 
     tempo_str = str(tempo_str).strip()
-    
+            
     # Tenta o formato "Xh Ym" 
     try:
         is_negative = tempo_str.startswith('-')
@@ -69,7 +69,7 @@ st.caption(f"Última atualização dos dados: {last_update_time.strftime('%d/%m/
 
 # --- PRÉ-PROCESSAMENTO ---
 if not df_jira.empty:
-    df_jira['Created'] = pd.to_datetime(df_jira['Created'], errors='coerce')
+    df_jira['Created'] = pd.to_datetime(df_jira['Created'], format='%d/%m/%Y', errors='coerce')
     df_jira['primeira_resposta_horas'] = df_jira['Time to first response'].apply(converter_para_horas)
     df_jira['tempo_resolucao_horas'] = df_jira['Time to resolution'].apply(converter_para_horas)
 else:
@@ -105,6 +105,7 @@ if not df_jira.empty and 'Created' in df_jira.columns and not df_jira['Created']
 
     lista_status = df_jira['Status'].dropna().unique().tolist()
     filtro_status = st.sidebar.multiselect("Selecione o(s) Status", options=lista_status)
+    
 
     # --- APLICAÇÃO DOS FILTROS ---
     if len(filtro_data_geral) == 2:
